@@ -61,7 +61,7 @@ module Magento
     end
 
     def base_path
-      "/rest/V1"
+      "rest/V1"
     end
 
     def base_url
@@ -91,9 +91,9 @@ module Magento
         errors = []
       end
 
-      raise Magento::NotFound.new(msg, resp.status.code, errors, @request) if resp.status.not_found?
+      raise Magento::NotFound.new(msg, resp.code, errors, @request) if resp.code == "404"
 
-      raise Magento::MagentoError.new(msg, resp.status.code, errors, @request)
+      raise Magento::MagentoError.new(msg, resp.code, errors, @request)
     end
 
     def save_request(method, url, body = nil)
