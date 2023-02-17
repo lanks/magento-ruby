@@ -87,7 +87,7 @@ module Magento
     end
 
     def all
-      result = request.get("#{endpoint}?#{query_params}").parse
+      result = JSON.parse(request.get("#{endpoint}?#{query_params}"))
       if model == Magento::Category
         model.build(result)
       else
