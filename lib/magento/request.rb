@@ -75,7 +75,7 @@ module Magento
     end
 
     def handle_error(resp)
-      return resp if ["200"].exclude?(resp.code)
+      return resp if ["200"].include?(resp.code)
       puts resp.body
       begin
         msg = resp.parse['message']
