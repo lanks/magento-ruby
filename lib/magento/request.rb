@@ -38,7 +38,7 @@ module Magento
 
     def oauth
       @consumer ||= OAuth::Consumer.new(config.consumer_key, config.consumer_secret, {site: config.url, no_verify: true, signature_method: "HMAC-SHA256"})
-      @access_token ||= OAuth.new(consumer, token=config.access_token, secret=config.token_secret)
+      @access_token ||= OAuth.new(@consumer, token=config.access_token, secret=config.token_secret)
     end
 
     def http_auth
