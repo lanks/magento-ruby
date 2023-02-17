@@ -70,6 +70,7 @@ module Magento
     end
 
     def url(resource)
+      puts "#{base_url}/#{base_path}/#{resource}"
       "#{base_url}/#{base_path}/#{resource}"
     end
 
