@@ -2,10 +2,12 @@
 
 require 'uri'
 require 'http'
+require 'oauth'
 
 module Magento
   class Request
     attr_reader :config
+    # , :consumer_key, :consumer_secret, :access_token, :token_secret, :website
 
     def initialize(config: Magento.configuration)
       @config = config
@@ -34,18 +36,41 @@ module Magento
 
     private
 
+    def oauth
+      @consumer ||= OAuth::Consumer.new(config.consumer_key, config.consumer_secret, {site: config.url, no_verify: true, signature_method: "HMAC-SHA256"})
+      @access_token ||= OAuth.new(consumer, token=config.access_token, secret=config.token_secret)
+    end
+
     def http_auth
-      HTTP.auth("Bearer #{config.token}")
-          .timeout(connect: config.timeout, read: config.open_timeout)
+      # oauthenticator_signable_request = OAuthenticator::SignableRequest.new(
+      #   request_method: "GET",
+      #   uri: my_request_uri,
+      #   body: "",
+      #   media_type: "application/json",
+      #   signature_method: "HMAC-SHA256",
+      #   consumer_key: "v22hp8vi081pe163ocmx6os4odxsgmix",
+      #   consumer_secret: "cpqjogyxb5cqt0eoi59ieej39y53v2pw",
+      #   token: "kkw99pyzzgi47o0omxrx6sscpbsfitu2",
+      #   token_secret: "wka9gtw3dbcz1qubnndpw7m6b70hillo"
+      # )
+      # HTTP.auth('OAuth oauth_consumer_key="v22hp8vi081pe163ocmx6os4odxsgmix",oauth_token="kkw99pyzzgi47o0omxrx6sscpbsfitu2",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1676609692",oauth_nonce="Van3GVgmRfi",oauth_version="1.0",oauth_signature="B1JMIpx3NSuBNcgG8kS7f1uzukleUSGPWoCZ9DNNGJA%3D"')
+      # # HTTP..headers()
+      
+      #     .timeout(connect: config.timeout, read: config.open_timeout)
+      return oauth
+    end
+
+    def base_path
+      "/rest/V1"
     end
 
     def base_url
       url = config.url.to_s.sub(%r{/$}, '')
-      "#{url}/rest/#{config.store}/V1"
+      "#{url}"
     end
 
     def url(resource)
-      "#{base_url}/#{resource}"
+      "#{base_url}/#{base_path}/#{resource}"
     end
 
     def handle_error(resp)

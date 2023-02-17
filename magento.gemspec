@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'dry-struct'
   s.add_dependency 'activesupport'
   s.add_dependency 'mini_magick'
+  s.add_dependency 'oauth'
 end

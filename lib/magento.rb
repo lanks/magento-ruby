@@ -41,7 +41,7 @@ module Magento
   class << self
     attr_writer :configuration
 
-    delegate :url=, :token=, :store=, :open_timeout=, :timeout=, to: :configuration
+    delegate :consumer_key=, :consumer_secret=, :access_token=, :token_secret=, :url=, :token=, :store=, :open_timeout=, :timeout=, to: :configuration
 
     def inflector
       @inflector ||= Dry::Inflector.new do |inflections|
