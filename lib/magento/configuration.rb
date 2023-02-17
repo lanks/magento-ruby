@@ -1,14 +1,17 @@
 module Magento
   class Configuration
-    attr_accessor :url, :open_timeout, :timeout, :token, :store, :product_image
+    attr_accessor :consumer_key, :consumer_secret, :access_token, :token_secret, :url, :open_timeout, :timeout, :token, :store, :product_image
   
-    def initialize(url: nil, token: nil, store: nil)
+    def initialize(consumer_key: nil, consumer_secret: nil, access_token: nil, token_secret: nil, url: nil, token: nil, store: nil)
       self.url            = url || ENV['MAGENTO_URL']
       self.open_timeout   = 30
       self.timeout        = 90
       self.token          = token || ENV['MAGENTO_TOKEN']
       self.store          = store || ENV['MAGENTO_STORE'] || :all
-
+      self.consumer_key = consumer_key
+      self.consumer_secret = consumer_secret
+      self.access_token = access_token
+      self.token_secret = token_secret
       self.product_image  = ProductImageConfiguration.new
     end
   
