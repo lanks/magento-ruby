@@ -141,8 +141,8 @@ module Magento
     class << self
       alias_method :find_by_sku, :find
 
-      def products_by_category(id)
-        request.get("categories/#{id}/products").parse
+      def products_by_category(id, page=1, page_size=100)
+        JSON.parse(request.get("categories/#{id}/products?fields=sku&searchCriteria[currentPage]=#{page}&searchCriteria[pageSize]=#{page_size}"))
       end
       # Create new gallery entry
       #
