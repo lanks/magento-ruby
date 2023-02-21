@@ -61,7 +61,7 @@ module Magento
     end
 
     def base_path
-      "rest/V1"
+      "rest/#{config.store}/V1"
     end
 
     def base_url
