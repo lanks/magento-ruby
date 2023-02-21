@@ -141,6 +141,9 @@ module Magento
     class << self
       alias_method :find_by_sku, :find
 
+      def products_by_category(id)
+        request.get("categories/#{id}/products").parse
+      end
       # Create new gallery entry
       #
       # Example:
