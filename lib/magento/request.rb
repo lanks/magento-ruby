@@ -20,13 +20,13 @@ module Magento
 
     def put(resource, body)
       save_request(:put, url(resource), body)
-      handle_error http_auth.put(url(resource), json: body)
+      handle_error http_auth.put(url(resource), body)
     end
 
     def post(resource, body = nil, url_completa = false)
       url = url_completa ? resource : url(resource)
       save_request(:post, url, body)
-      handle_error http_auth.post(url, json: body)
+      handle_error http_auth.post(url, body)
     end
 
     def delete(resource)
