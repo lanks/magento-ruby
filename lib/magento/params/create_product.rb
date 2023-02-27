@@ -69,6 +69,7 @@ module Magento
       attribute :category_ids,      Type::Array.of(Type::Integer).default([].freeze)
       attribute :images,            Type::Array.of(Type::Instance(CreateImage)).default([].freeze)
       attribute :website_ids,       Type::Array.of(Type::Integer).default([0].freeze)
+      attribute :include_stock,     Type::Bool.default(false)
       attribute :custom_attributes, Type::Array.default([], shared: true) do
         attribute :attribute_code,  Type::String
         attribute :value,           Type::Coercible::String
@@ -77,7 +78,7 @@ module Magento
       alias orig_custom_attributes custom_attributes
 
       def to_h
-        {
+        h = {
           sku: sku,
           name: name.titlecase,
           price: price,
@@ -88,12 +89,13 @@ module Magento
           attribute_set_id: attribute_set_id,
           extension_attributes: {
             website_ids: website_ids,
-            category_links: categories,
-            stock_item: stock
+            category_links: categories
           },
           media_gallery_entries: images.map(&:to_h),
           custom_attributes: custom_attributes.map(&:to_h)
         }
+        h[:extension_attributes][:stock_item] = stock if include_stock 
+        return h
       end
 
       def stock
