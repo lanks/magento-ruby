@@ -26,6 +26,9 @@ module Magento
     def post(resource, body = nil, url_completa = false)
       url = url_completa ? resource : url(resource)
       save_request(:post, url, body)
+      puts "***** BODY *****"
+      puts body
+      puts "***** URL ***** #{url}"
       handle_error http_auth.post(url, body)
     end
 
