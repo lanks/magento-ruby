@@ -39,13 +39,13 @@ module Magento
                      :where, :first, :find_by, :count
 
       def find(id)
-        hash = request.get("#{api_resource}/#{id}").parse
+        hash = JSON.parse(request.get("#{api_resource}/#{id}"))
         build(hash)
       end
 
       def create(attributes)
         body = { entity_key => attributes }
-        hash = request.post(api_resource, body).parse
+        hash = JSON.parse(request.post(api_resource, body))
         build(hash)
       end
 
@@ -55,7 +55,7 @@ module Magento
 
       def update(id, attributes)
         body = { entity_key => attributes }
-        hash = request.put("#{api_resource}/#{id}", body).parse
+        hash = JSON.parse(request.put("#{api_resource}/#{id}", body))
 
         block_given? ? yield(hash) : build(hash)
       end
