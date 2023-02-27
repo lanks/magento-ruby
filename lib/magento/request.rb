@@ -20,16 +20,16 @@ module Magento
 
     def put(resource, body)
       save_request(:put, url(resource), body)
-      handle_error http_auth.put(url(resource), body)
+      handle_error http_auth.put(url(resource), body.to_json, {'Accept'=>'application/json', "Content-Type" => "application/json"})
     end
 
     def post(resource, body = nil, url_completa = false)
       url = url_completa ? resource : url(resource)
       save_request(:post, url, body)
       puts "***** BODY *****"
-      puts body
+      puts body.to_json
       puts "***** URL ***** #{url}"
-      handle_error http_auth.post(url, body)
+      handle_error http_auth.post(url, body.to_json, {'Accept'=>'application/json', "Content-Type" => "application/json"})
     end
 
     def delete(resource)
