@@ -6,6 +6,10 @@ module Magento
       attr(m) || super(m, *params, &block)
     end
 
+    def product_links
+      extension_attributes&.product_links
+    end
+
     def stock
       extension_attributes&.stock_item
     end
