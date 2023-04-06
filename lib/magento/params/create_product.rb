@@ -102,27 +102,8 @@ module Magento
         {
           qty: quantity,
           is_in_stock: quantity.to_i > 0,
-          is_qty_decimal: is_qty_decimal,
-          show_default_notification_message: false,
-          use_config_min_qty: true,
-          min_qty: 1,
-          use_config_min_sale_qty: 0,
-          min_sale_qty: 0,
-          use_config_max_sale_qty: true,
-          max_sale_qty: 0,
-          use_config_backorders: true,
-          backorders: 0,
-          use_config_notify_stock_qty: true,
-          notify_stock_qty: 0,
-          use_config_qty_increments: true,
-          qty_increments: 0,
-          use_config_enable_qty_inc: true,
-          enable_qty_increments: true,
           use_config_manage_stock: manage_stock,
-          manage_stock: manage_stock,
-          low_stock_date: 'string',
-          is_decimal_divided: is_qty_decimal,
-          stock_status_changed_auto: 0
+          manage_stock: manage_stock
         }
       end
 
