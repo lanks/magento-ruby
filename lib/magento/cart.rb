@@ -105,7 +105,7 @@ module Magento
       def add_item(id, attributes)
         url  = "#{api_resource}/#{id}/items"
         hash = request.post(url, attributes).parse
-        Magento::ModelMapper.map_hash(Magento::Item, hash)
+        Magento::ModelMapper.map_hash(Item, hash)
       end
 
       def delete_item(id, item_id)
@@ -130,7 +130,7 @@ module Magento
       def update_item(id, item_id, attributes)
         url = "#{api_resource}/#{id}/items/#{item_id}"
         hash = request.put(url, attributes).parse
-        Magento::ModelMapper.map_hash(Magento::Item, hash)
+        Magento::ModelMapper.map_hash(Item, hash)
       end
 
       #

@@ -85,7 +85,7 @@ module Magento
       def add_item(id, attributes)
         url  = "#{api_resource}/#{id}/items"
         hash = request.post(url, attributes).parse
-        Magento::ModelMapper.map_hash(Magento::Item, hash)
+        Magento::ModelMapper.map_hash(Item, hash)
       end
 
       # 
