@@ -1,4 +1,4 @@
 module Magento
-  class ParentItem < Magento::Item
+  class ParentItem < Item
   end
 end
